@@ -1,9 +1,8 @@
 import { React, useEffect, useRef } from "react";
 
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './header.scss';
-
-import logo from '../../assets/tmovie.png';
+import Logo from  '../logo/Logo';
 
 const headerNav = [
     {
@@ -45,15 +44,12 @@ const Header = () => {
     return (
         <div ref={headerRef} className="header">
             <div className="header__wrap container">
-                <div className="logo">
-                    <img src={logo} alt="" />
-                    <Link to="/">tMovies</Link>
-                </div>
+                <Logo/>
                 <ul className="header__nav">
                     {
                         headerNav.map((element, index) => (
                             <li key={index} className={`${index === active ? 'active' : ''}`}>
-                                <Link to={element.path}>{element.display}</Link>
+                                <a href={element.path}>{element.display}</a>
                             </li>
                         ))
                     }

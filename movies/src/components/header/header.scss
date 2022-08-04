@@ -1,15 +1,7 @@
 @use '../../scss/' as *;
 
-.logo {
-    font-size: 2.5rem;
-    font-weight: 600;
-
-    @include flex(center, unset);
-
-    img {
-        margin-right: 10px;
-        width: 3.3rem;
-    }
+a:hover{
+    color:red;
 }
 
 .header {
@@ -37,6 +29,7 @@
     }
 
     &__nav {
+
         @include flex(center, unset);
 
         &>*~* {
