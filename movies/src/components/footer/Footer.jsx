@@ -24,7 +24,7 @@ const Footer = () => {
                         <a href="/">Live</a>
                         <a href="/">FAQ</a>
                         <a href="/">Premium</a>
-                        <a href="/">Pravacy policy</a>
+                        <a href="/">Privacy policy</a>
                     </div>
                     <div className="footer__content__link">
                         <a href="/">You must watch</a>
