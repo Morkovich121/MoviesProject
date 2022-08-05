@@ -17,12 +17,12 @@ const MovieCard = props => {
     return (
         <a href={link}>
             <div className='movie-card'>
-                <div className='movie-card__logo'>
+                <div className="movie-card__logo">
                     <img src={bg} alt="" className='movie-card__poster' />
-                    <Button>
-                        <i className='bx bx-play'></i>
-                    </Button>
                 </div>
+                <Button>
+                    <i className='bx bx-play'></i>
+                </Button>
             </div>
             <h3>{element.title || element.name}</h3>
         </a>

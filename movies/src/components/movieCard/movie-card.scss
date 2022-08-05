@@ -1,21 +1,12 @@
 @use '../../scss/' as *;
 
-.test{
-    border-radius: $border-radius;
-}
-
 .movie-card {
+    position: relative;
     border-radius: $border-radius;
     margin-bottom: 1rem;
 
-    &__logo {
+    &__poster{
         border-radius: $border-radius;
-    }
-
-    &__poster {
-        border-radius: $border-radius;
-        height: 20rem;
-        width: 22rem;
     }
 
     .btn {
@@ -33,8 +24,7 @@
         left: 0;
         bottom: 0;
         right: 0;
-        height: 20rem;
-        background-color: #000;
+        background-color: #0f0f0f;
         opacity: 0;
         transition: opacity 0.3s ease;
         border-radius: $border-radius;
@@ -46,7 +36,7 @@
         }
 
         &:hover .btn {
-            transform: translate(-50%, -100%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
         }
     }
 }
