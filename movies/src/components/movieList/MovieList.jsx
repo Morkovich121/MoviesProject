@@ -44,11 +44,11 @@ const MovieList = props => {
                 slidesPerView={'auto'}
             >
                 {
-                    elements.map((element, index) => {
-                            <SwiperSlide key={index}>
-                                <MovieCard item={element} category={props.category}></MovieCard>
-                            </SwiperSlide>
-                    })
+                    elements.map((element, index) => (
+                        <SwiperSlide key={index}>
+                            <MovieCard item={element} category={props.category}></MovieCard>
+                        </SwiperSlide>
+                    ))
                 }
             </Swiper>
         </div>
