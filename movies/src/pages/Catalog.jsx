@@ -10,7 +10,6 @@ const Catalog = () => {
 
     const { category } = useParams();
 
-    console.log(category);
     return (
         <>
             <PageHeader>

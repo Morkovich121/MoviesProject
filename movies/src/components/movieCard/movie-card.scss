@@ -5,7 +5,7 @@
     border-radius: $border-radius;
     margin-bottom: 1rem;
 
-    &__poster{
+    &__poster {
         border-radius: $border-radius;
     }
 
@@ -29,14 +29,14 @@
         transition: opacity 0.3s ease;
         border-radius: $border-radius;
     }
+}
 
-    @media (hover:hover) {
-        &:hover::before {
-            opacity: .8;
-        }
+.cont:hover .movie-card {
+    &::before {
+        opacity: 0.8;
+    }
 
-        &:hover .btn {
-            transform: translate(-50%, -50%) scale(1);
-        }
+    .btn {
+        transform: translate(-50%, -50%) scale(1);
     }
 }
