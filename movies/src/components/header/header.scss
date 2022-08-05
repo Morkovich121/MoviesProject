@@ -1,7 +1,20 @@
-@use '../../scss/' as *;
+@use "../../scss/" as *;
 
-a:hover{
-    color:red;
+.logo {
+    font-size: 2.5rem;
+    font-weight: 600;
+
+    @include flex(center, unset);
+
+    img {
+        margin-right: 10px;
+        width: 50px;
+
+        @include mobile {
+            width: 30px;
+            margin-right: 0;
+        }
+    }
 }
 
 .header {
@@ -29,10 +42,9 @@ a:hover{
     }
 
     &__nav {
-
         @include flex(center, unset);
 
-        &>*~* {
+        & > * ~ * {
             margin-left: 2rem;
         }
 
@@ -49,7 +61,7 @@ a:hover{
                 left: 50%;
                 transform: translateX(-50%);
                 width: 0;
-                transition: width .5s ease;
+                transition: width 0.5s ease;
                 height: 2px;
                 background-color: $main-color;
             }
@@ -62,8 +74,8 @@ a:hover{
 
         @include mobile {
             position: fixed;
-            left: 0;
             bottom: 0;
+            left: 0;
             height: 5rem;
             width: 100%;
             background-color: $body-bg;
@@ -72,7 +84,7 @@ a:hover{
 
             @include flex(center, space-between);
 
-            &>*~* {
+            & > * ~ * {
                 margin-left: 0;
             }
         }
