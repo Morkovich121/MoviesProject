@@ -16,7 +16,7 @@ const MovieCard = props => {
     let bg = apiConfig.w500Image(element.poster_path || element.backdrop_path);
     const arr = bg.split('/');
     if (arr[arr.length - 1] == 'null') {
-        return 1;
+        return null;
     }
     else {
         return (

@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import './movie-grid.scss';
 
 import MovieCard from '../movieCard/MovieCard';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import tmdbApi, { category, movieType, tvType } from '../../api/tmdbApi';
-import { OutlineButton } from '../button/Button';
+import Button, { OutlineButton } from '../button/Button';
+import Input from '../input/Input';
 
 const MovieGrid = props => {
 
@@ -46,19 +47,19 @@ const MovieGrid = props => {
             const params = {
                 page: page + 1
             };
-            switch(props.category) {
+            switch (props.category) {
                 case category.movie:
-                    response = await tmdbApi.getMoviesList(movieType.upcoming, {params});
+                    response = await tmdbApi.getMoviesList(movieType.upcoming, { params });
                     break;
                 default:
-                    response = await tmdbApi.getTvList(tvType.popular, {params});
+                    response = await tmdbApi.getTvList(tvType.popular, { params });
             }
         } else {
             const params = {
                 page: page + 1,
                 query: keyword
             }
-            response = await tmdbApi.search(props.category, {params});
+            response = await tmdbApi.search(props.category, { params });
         }
         setElements([...elements, ...response.results]);
         setPage(page + 1);
@@ -66,6 +67,9 @@ const MovieGrid = props => {
 
     return (
         <>
+            <div className="section mb-3">
+                <MovieSearch category={props.category} keyword={keyword} />
+            </div>
             <div className='movie-grid'>
                 {
                     elements.map((element, index) => <MovieCard category={props.category} item={element} key={index} />)
@@ -79,6 +83,48 @@ const MovieGrid = props => {
                 ) : null
             }
         </>
+    )
+}
+
+const MovieSearch = props => {
+
+    const history = useHistory();
+
+    const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
+
+    const goToSearch = useCallback(
+        () => {
+            if (keyword.trim().length > 0) {
+                history.push(`/${category[props.category]}/search/${keyword}`);
+                window.location.reload();
+            }
+        },
+        [keyword, props.category, history]
+    );
+
+    useEffect(() => {
+        const enterEvent = (e) => {
+            e.preventDefault();
+            if (e.keyCode === 13) {
+                goToSearch();
+            }
+        }
+        document.addEventListener('keyup', enterEvent);
+        return () => {
+            document.removeEventListener('keyup', enterEvent);
+        };
+    }, [keyword, goToSearch]);
+
+    return (
+        <div className="movie-search">
+            <Input
+                type="text"
+                placeholder="Enter keyword"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+            />
+            <Button className="small" onClick={goToSearch}>Search</Button>
+        </div>
     )
 }
 
