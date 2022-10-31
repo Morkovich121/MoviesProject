@@ -13,9 +13,9 @@ import Routes from './config/Routes';
 function App() {
   return (
     <BrowserRouter>
-      <Route render={props => (
+      <Route render={() => (
         <>
-          <Header {...props} />
+          <Header />
           <Routes />
           <Footer />
         </>

@@ -1,4 +1,5 @@
 import { React } from "react";
+import {Link} from 'react-router-dom'
 
 import './footer.scss';
 
@@ -8,28 +9,28 @@ import Logo from '../logo/Logo';
 
 const Footer = () => {
     return (
-        <div className="footer" style={{backgroundImage: `url(${bg})`}}>
+        <div className="footer" style={{ backgroundImage: `url(${bg})` }}>
             <div className="footer__content container">
                 <div className="footer__content__logo">
-                    <Logo/>
+                    <Logo />
                 </div>
                 <div className="footer__content__links">
                     <div className="footer__content__link">
-                        <a to="/">Home</a>
-                        <a to="/">Contact us</a>
-                        <a href="/">Term of services</a>
-                        <a href="/">About us</a>
+                        <Link to="/">Home</Link>
+                        <Link to="/">Contact us</Link>
+                        <Link to="/">Term of services</Link>
+                        <Link to="/">About us</Link>
                     </div>
                     <div className="footer__content__link">
-                        <a href="/">Live</a>
-                        <a href="/">FAQ</a>
-                        <a href="/">Premium</a>
-                        <a href="/">Privacy policy</a>
+                        <Link to="/">Live</Link>
+                        <Link to="/">FAQ</Link>
+                        <Link to="/">Premium</Link>
+                        <Link to="/">Privacy policy</Link>
                     </div>
                     <div className="footer__content__link">
-                        <a href="/">You must watch</a>
-                        <a href="/">Recent release</a>
-                        <a href="/">Top IMDB</a>
+                        <Link to="/">You must watch</Link>
+                        <Link to="/">Recent release</Link>
+                        <Link to="/">Top IMDB</Link>
                     </div>
                 </div>
             </div>

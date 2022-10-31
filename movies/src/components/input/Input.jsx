@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import './input.scss';
 
@@ -11,6 +12,13 @@ const Input = props => {
             onChange={props.onChange ? (e) => props.onChange(e) : null}
         />
     )
+}
+
+Input.propTypes = {
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
 }
 
 export default Input

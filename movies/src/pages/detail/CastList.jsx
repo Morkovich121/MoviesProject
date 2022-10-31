@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import { useParams } from 'react-router-dom'
 
@@ -31,6 +32,10 @@ const CastList = props => {
             }
         </div>
     )
+}
+
+CastList.propTypes = {
+    id: PropTypes.number,
 }
 
 export default CastList

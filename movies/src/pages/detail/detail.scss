@@ -33,9 +33,13 @@
     max-width: 1260px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: -200px;
+    margin-top: -75px;
     position: relative;
     padding: 0 2rem;
+
+    @include mobile {
+        margin-top: 0px;
+    }
 
     &__poster {
         flex: 1;
@@ -70,6 +74,9 @@
         .title {
             font-size: 4rem;
             line-height: 1;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-end;
         }
 
         .genres {
@@ -107,10 +114,20 @@
     }
 }
 
-.video{
+.video {
     margin-bottom: 3rem;
 
-    &__title{
+    &__title {
         margin-bottom: 1.5rem;
     }
+}
+
+.favorite {
+    background-color: transparent;
+    border:none;
+}
+
+.favoriteLogo {
+    width:50px;
+    height: 50px;
 }

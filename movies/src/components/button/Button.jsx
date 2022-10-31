@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './button.scss';
 
@@ -25,6 +25,15 @@ export const OutlineButton = props => {
   )
 }
 
-Button.propTypes = {}
+Button.propTypes = {
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+}
+
+OutlineButton.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.string,
+  onClick: PropTypes.func,
+}
 
 export default Button

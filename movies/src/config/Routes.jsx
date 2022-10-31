@@ -10,6 +10,14 @@ const Routes = () => {
     return (
         <Switch>
             <Route
+                path='/registration'
+                component={Home}
+            />
+            <Route
+                path='/login'
+                component={Home}
+            />
+            <Route
                 path='/:category/search/:keyword'
                 component={Catalog}
             />

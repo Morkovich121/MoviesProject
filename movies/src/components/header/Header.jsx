@@ -2,30 +2,42 @@ import { React, useEffect, useRef } from "react";
 
 import { useLocation } from 'react-router-dom';
 import './header.scss';
-import Logo from  '../logo/Logo';
+import Logo from '../logo/Logo';
+
+const links = {
+    en: ['Home', 'Movies', 'TV Series', 'Sign Up', 'Sign In'],
+    ru: ['Главная', "Фильмы", "Сериалы", "Зарегистрироваться", "Авторизоваться"]
+}
+
 
 const headerNav = [
     {
-        display: 'Home',
+        display: links.en[0],
         path: '/'
     },
     {
-        display: 'Movies',
+        display: links.en[1],
         path: '/movie'
     },
     {
-        display: 'TV Series',
+        display: links.en[2],
         path: '/tv'
     },
+    {
+        display: links.en[3],
+        path: '/registration'
+    },
+    {
+        display: links.en[4],
+        path: '/login'
+    }
 ]
 
 const Header = () => {
 
-    const { pathname } = useLocation();
+    const pathname = useLocation();
     const headerRef = useRef(null);
-
-    const active = headerNav.findIndex(e => e.path === pathname);
-
+    const active = headerNav.findIndex(e => e.path === pathname.pathname);
     useEffect(() => {
         const shrinkHeader = () => {
             if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
@@ -43,18 +55,18 @@ const Header = () => {
     return (
         <div ref={headerRef} className="header">
             <div className="header__wrap container">
-                <Logo/>
+                <Logo />
                 <ul className="header__nav">
                     {
                         headerNav.map((element, index) => (
-                            <li key={index} className={`${index === active ? 'active' : ''}`}>
-                                <a href={element.path}>{element.display}</a>
-                            </li>
-                        ))
+                            <li key={index} className={`${index === active ? 'active' : ''}`} style={{fontSize: `${index > 2 ? "2.5rem" : '1.5rem'}`}} >
+                    <a href={element.path}>{element.display}</a>
+                </li>
+                ))
                     }
-                </ul>
-            </div>
+            </ul>
         </div>
+        </div >
     );
 }
 

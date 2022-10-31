@@ -21,15 +21,9 @@ const Modal = props => {
     )
 }
 
-Modal.propTypes = {
-    active: PropTypes.bool,
-    id: PropTypes.string
-}
-
 export const ModalContent = props => {
 
     const contentRef = useRef(null);
-
     const closeModal = () => {
         contentRef.current.parentNode.classList.remove('active');
         if (props.onClose) props.onClose();
@@ -45,8 +39,15 @@ export const ModalContent = props => {
     )
 }
 
+Modal.propTypes = {
+    active: PropTypes.bool,
+    id: PropTypes.string,
+    children: PropTypes.object
+}
+
 ModalContent.propTypes = {
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    children: PropTypes.object,
 }
 
 export default Modal

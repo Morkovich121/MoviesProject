@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types'
 
 import './movie-grid.scss';
 
@@ -126,6 +127,15 @@ const MovieSearch = props => {
             <Button className="small" onClick={goToSearch}>Search</Button>
         </div>
     )
+}
+
+MovieGrid.propTypes = {
+    category: PropTypes.string,
+}
+
+MovieSearch.propTypes = {
+    category: PropTypes.string,
+    keyword: PropTypes.string,
 }
 
 export default MovieGrid

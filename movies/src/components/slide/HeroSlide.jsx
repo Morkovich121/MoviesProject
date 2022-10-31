@@ -2,6 +2,7 @@ import { React, useState, useRef, useEffect } from 'react'
 
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import PropTypes from 'prop-types'
 
 import tmdbApi, { category, movieType } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
@@ -24,7 +25,6 @@ const HeroSlide = () => {
             try {
                 const response = await tmdbApi.getMoviesList(movieType.popular, { params });
                 setMovieItems(response.results);
-                console.log(response);
             } catch {
                 console.log('error');
             }
@@ -39,7 +39,7 @@ const HeroSlide = () => {
                 grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                //autoplay={{ delay: 3000 }}
+                autoplay={{ delay: 3000 }}
             >
                 {
                     movieItems.map((element, i) => (
@@ -90,7 +90,7 @@ const HeroSlideElement = props => {
                     <div className='title'>{elem.title}</div>
                     <div className='overview'>{elem.overview}</div>
                     <div className="btns">
-                        <Button onClick={() =>{
+                        <Button onClick={() => {
                             history.push('/movie/' + elem.id);
                             window.location.reload();
                         }}>
@@ -102,7 +102,7 @@ const HeroSlideElement = props => {
                     </div>
                 </div>
                 <div className="hero-slide__element__content__poster">
-                    <img src={apiConfig.w500Image(elem.poster_path)} />
+                    <img src={apiConfig.w500Image(elem.poster_path)} alt="" />
                 </div>
             </div>
         </div>
@@ -122,6 +122,22 @@ const TrailerModal = props => {
             </ModalContent>
         </Modal>
     )
+}
+
+HeroSlideElement.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.number,
+        poster_path: PropTypes.string,
+        backdrop_path: PropTypes.string,
+        title: PropTypes.string,
+        overview: PropTypes.string
+    }),
+}
+
+TrailerModal.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.number,
+    })
 }
 
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 
 import { useParams } from 'react-router-dom'
 
 import tmdbApi from '../../api/tmdbApi';
-import apiConfig from '../../api/apiConfig';
 
 const VideoList = props => {
 
@@ -54,6 +54,17 @@ const Video = props => {
             ></iframe>
         </div>
     )
+}
+
+VideoList.propTypes = {
+    id: PropTypes.number,
+}
+
+Video.propTypes = {
+    item: PropTypes.shape({
+        key: PropTypes.string,
+        name: PropTypes.string,
+    })
 }
 
 export default VideoList
