@@ -6,12 +6,16 @@ import { category as categ } from '../api/tmdbApi';
 import MovieGrid from "../components/movieGrid/MovieGrid";
 import PageHeader from '../components/pageHeader/PageHeader';
 
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+
 const Catalog = () => {
 
     const { category } = useParams();
 
     return (
         <>
+            <Header />
             <PageHeader>
                 {category === categ.movie ? 'Movies' : 'TV Series'}
             </PageHeader>
@@ -20,6 +24,7 @@ const Catalog = () => {
                     <MovieGrid category={category} />
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

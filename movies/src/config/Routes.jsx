@@ -5,17 +5,18 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../pages/Home';
 import Catalog from '../pages/Catalog';
 import Detail from '../pages/detail/Detail';
+import Authorization from '../pages/authorization/Authorization';
 
 const Routes = () => {
     return (
         <Switch>
             <Route
                 path='/registration'
-                component={Home}
+                component={Authorization}
             />
             <Route
-                path='/login'
-                component={Home}
+                path='/authorization'
+                component={Authorization}
             />
             <Route
                 path='/:category/search/:keyword'

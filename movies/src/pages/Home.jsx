@@ -6,13 +6,20 @@ import MovieList from "../components/movieList/MovieList";
 
 import { category, movieType, tvType } from '../api/tmdbApi';
 
+import Header from '../components/header/Header';
+import Footer from '../components/footer/Footer';
+
 const Home = () => {
+    console.log(localStorage);
     if (localStorage.length === 0) {
-        localStorage.setItem('favouriteMovie', JSON.stringify([]))
-        localStorage.setItem('favouriteTV', JSON.stringify([]));
+        localStorage.setItem('activeAccount', JSON.stringify({}));
+        localStorage.setItem('allAccounts', JSON.stringify([]));
+        // localStorage.setItem('favouriteMovie', JSON.stringify([]));
+        // localStorage.setItem('favouriteTV', JSON.stringify([]));
     }
     return (
         <>
+            <Header />
             <HeroSlide />
             <div className="container">
                 <div className="section mb-3">
@@ -58,9 +65,11 @@ const Home = () => {
                             <OutlineButton className="small">View more</OutlineButton>
                         </a>
                     </div>
-                    {JSON.parse(localStorage.getItem('favouriteMovie')).length > 0 ?
-                        <MovieList category={category.movie} type="favouriteMovie" favouriteMovie={JSON.parse(localStorage.getItem('favouriteMovie'))}></MovieList> :
-                        <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>You don't have favorite movies yet</h2>
+                    {Object.keys(JSON.parse(localStorage.getItem('activeAccount'))).length !== 0 ?
+                        JSON.parse(localStorage.getItem('activeAccount')).favouriteMovies.length > 0 ?
+                            <MovieList category={category.movie} type="favouriteMovie" favouriteMovie={JSON.parse(localStorage.getItem('activeAccount')).favouriteMovies}></MovieList> :
+                            <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>You don't have favorite movies yet</h2> :
+                        <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>First you need to sign in</h2>
                     }
                 </div>
                 <div className="section mb-3">
@@ -70,12 +79,15 @@ const Home = () => {
                             <OutlineButton className="small">View more</OutlineButton>
                         </a>
                     </div>
-                    {JSON.parse(localStorage.getItem('favouriteTV')).length > 0 ?
-                        <MovieList category={category.tv} type="favouriteTV" favouriteTV={JSON.parse(localStorage.getItem('favouriteTV'))}></MovieList> :
-                        <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>You don't have favorite TV yet</h2>
+                    {Object.keys(JSON.parse(localStorage.getItem('activeAccount'))).length !== 0 ?
+                        JSON.parse(localStorage.getItem('activeAccount')).favouriteTV.length > 0 ?
+                            <MovieList category={category.tv} type="favouriteTV" favouriteTV={JSON.parse(localStorage.getItem('activeAccount')).favouriteTV}></MovieList> :
+                            <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>You don't have favorite TV yet</h2> :
+                        <h2 style={{ display: "flex", justifyContent: "center", fontSize: "1.2rem" }}>First you need to sign in</h2>
                     }
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

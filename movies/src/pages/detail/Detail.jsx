@@ -11,7 +11,11 @@ import fav from '../../assets/fav.png';
 import CastList from "./CastList";
 import VideoList from "./VideoList";
 import MovieList from '../../components/movieList/MovieList';
+import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
 import { useCallback } from "react";
+
+
 
 const Detail = () => {
 
@@ -26,19 +30,20 @@ const Detail = () => {
             const response = await tmdbApi.detail(category, id, { params: {} });
             setElements(response);
             window.scrollTo(0, 0);
-            let temp;
-            if (category === 'tv') {
-                temp = JSON.parse(localStorage.getItem('favouriteTV'));
-                temp.forEach((elem) => {
-                    if ((elem.title === response.title && elem.title !== undefined) || (elem.name === response.name)) setIsFavorite(true);
-                })
+            let acc = JSON.parse(localStorage.getItem('activeAccount'));
+            if (acc.length > 0) {
+                if (category === 'tv') {
+                    acc.favouriteTV.forEach((elem) => {
+                        if ((elem.title === response.title && elem.title !== undefined) || (elem.name === response.name)) setIsFavorite(true);
+                    })
+                }
+                else {
+                    acc.favouriteMovies.forEach((elem) => {
+                        if ((elem.title === response.title) || (elem.name === response.name && elem.name !== undefined)) setIsFavorite(true);
+                    });
+                }
             }
-            else {
-                temp = JSON.parse(localStorage.getItem('favouriteMovie'));
-                temp.forEach((elem) => {
-                    if ((elem.title === response.title) || (elem.name === response.name && elem.name !== undefined)) setIsFavorite(true);
-                });
-            }
+
         }
         getDetail();
 
@@ -49,41 +54,57 @@ const Detail = () => {
     }, [isFavorite]);
 
     const addToFavorite = useCallback(() => {
-        let temp;
-        if (category === 'tv') {
-            temp = JSON.parse(localStorage.getItem('favouriteTV'));
-            let checker = false;
-            temp.forEach((elem, index) => {
-                if ((elem.title === element.title && elem.title !== undefined) || (elem.name === element.name)) {
-                    temp.splice(index, 1);
-                    checker = true
-                };
+        let acc = JSON.parse(localStorage.getItem('activeAccount'));
+        if (Object.keys(acc).length > 0) {
+            let allAccs = JSON.parse(localStorage.getItem('allAccounts'));
+            let ind = 0;
+            allAccs.forEach((elem, index) => {
+                if (elem.email === acc.email) ind = index;
             })
-            if (checker === false) {
-                temp.push(element);
+            if (category === 'tv') {
+                let checker = false;
+                acc.favouriteTV.forEach((elem, index) => {
+                    if ((elem.title === element.title && elem.title !== undefined) || (elem.name === element.name)) {
+                        acc.favouriteTV.splice(index, 1);
+                        allAccs[ind].favouriteTV.splice(index, 1);
+                        checker = true
+                    };
+                })
+                if (checker === false) {
+                    acc.favouriteTV.push(element);
+                    allAccs[ind].favouriteTV.push(element);
+                }
+                localStorage.setItem('activeAccount', JSON.stringify(acc));
+                localStorage.setItem('allAccounts', JSON.stringify(allAccs));
             }
-            localStorage.setItem('favouriteTV', JSON.stringify(temp));
+            else {
+                let checker = false;
+                acc.favouriteMovies.forEach((elem, index) => {
+                    if (elem.title === element.title || (elem.name === element.name && elem.name !== undefined)) {
+                        acc.favouriteMovies.splice(index, 1);
+                        allAccs[ind].favouriteMovies.push(index, 1);
+                        checker = true
+                    };
+                });
+                if (checker === false) {
+                    acc.favouriteMovies.push(element);
+                    allAccs[ind].favouriteMovies.push(element);
+                }
+                localStorage.setItem('activeAccount', JSON.stringify(acc));
+                localStorage.setItem('allAccounts', JSON.stringify(allAccs));
+            }
+            if (isFavorite) setIsFavorite(false);
+            else setIsFavorite(true);
         }
         else {
-            temp = JSON.parse(localStorage.getItem('favouriteMovie'));
-            let checker = false;
-            temp.forEach((elem, index) => {
-                if (elem.title === element.title || (elem.name === element.name && elem.name !== undefined)) {
-                    temp.splice(index, 1);
-                    checker = true
-                };
-            });
-            if (checker === false) {
-                temp.push(element);
-            }
-            localStorage.setItem('favouriteMovie', JSON.stringify(temp));
+            alert("First you need to sign in")
         }
-        if (isFavorite) setIsFavorite(false);
-        else setIsFavorite(true);
+
     }, [category, element, isFavorite])
 
     return (
         <>
+            <Header />
             {
                 element && (
                     <>
@@ -128,6 +149,7 @@ const Detail = () => {
                                 <MovieList category={category} type="similar" id={element.id} />
                             </div>
                         </div>
+                        <Footer />
                     </>
                 )
             }

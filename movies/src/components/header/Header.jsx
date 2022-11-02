@@ -5,8 +5,8 @@ import './header.scss';
 import Logo from '../logo/Logo';
 
 const links = {
-    en: ['Home', 'Movies', 'TV Series', 'Sign Up', 'Sign In'],
-    ru: ['Главная', "Фильмы", "Сериалы", "Зарегистрироваться", "Авторизоваться"]
+    en: ['Home', 'Movies', 'TV Series', 'Sign In'],
+    ru: ['Главная', "Фильмы", "Сериалы", "Авторизоваться"]
 }
 
 
@@ -25,12 +25,8 @@ const headerNav = [
     },
     {
         display: links.en[3],
-        path: '/registration'
+        path: '/authorization'
     },
-    {
-        display: links.en[4],
-        path: '/login'
-    }
 ]
 
 const Header = () => {
