@@ -19,6 +19,11 @@ import { useCallback } from "react";
 
 const Detail = () => {
 
+    if (localStorage.length === 0) {
+        localStorage.setItem('activeAccount', JSON.stringify({}));
+        localStorage.setItem('allAccounts', JSON.stringify([]));
+    }
+
     const { category, id } = useParams();
 
     const [element, setElements] = useState(null);
@@ -29,9 +34,11 @@ const Detail = () => {
         const getDetail = async () => {
             const response = await tmdbApi.detail(category, id, { params: {} });
             setElements(response);
+            const response2 = await tmdbApi.movieGenres(category);
+            console.log(response2);
             window.scrollTo(0, 0);
             let acc = JSON.parse(localStorage.getItem('activeAccount'));
-            if (acc.length > 0) {
+            if (Object.keys(acc).length > 0) {
                 if (category === 'tv') {
                     acc.favouriteTV.forEach((elem) => {
                         if ((elem.title === response.title && elem.title !== undefined) || (elem.name === response.name)) setIsFavorite(true);
@@ -55,51 +62,45 @@ const Detail = () => {
 
     const addToFavorite = useCallback(() => {
         let acc = JSON.parse(localStorage.getItem('activeAccount'));
-        if (Object.keys(acc).length > 0) {
-            let allAccs = JSON.parse(localStorage.getItem('allAccounts'));
-            let ind = 0;
-            allAccs.forEach((elem, index) => {
-                if (elem.email === acc.email) ind = index;
+        let allAccs = JSON.parse(localStorage.getItem('allAccounts'));
+        let ind = 0;
+        allAccs.forEach((elem, index) => {
+            if (elem.email === acc.email) ind = index;
+        })
+        if (category === 'tv') {
+            let checker = false;
+            acc.favouriteTV.forEach((elem, index) => {
+                if ((elem.title === element.title && elem.title !== undefined) || (elem.name === element.name)) {
+                    acc.favouriteTV.splice(index, 1);
+                    allAccs[ind].favouriteTV.splice(index, 1);
+                    checker = true
+                };
             })
-            if (category === 'tv') {
-                let checker = false;
-                acc.favouriteTV.forEach((elem, index) => {
-                    if ((elem.title === element.title && elem.title !== undefined) || (elem.name === element.name)) {
-                        acc.favouriteTV.splice(index, 1);
-                        allAccs[ind].favouriteTV.splice(index, 1);
-                        checker = true
-                    };
-                })
-                if (checker === false) {
-                    acc.favouriteTV.push(element);
-                    allAccs[ind].favouriteTV.push(element);
-                }
-                localStorage.setItem('activeAccount', JSON.stringify(acc));
-                localStorage.setItem('allAccounts', JSON.stringify(allAccs));
+            if (checker === false) {
+                acc.favouriteTV.push(element);
+                allAccs[ind].favouriteTV.push(element);
             }
-            else {
-                let checker = false;
-                acc.favouriteMovies.forEach((elem, index) => {
-                    if (elem.title === element.title || (elem.name === element.name && elem.name !== undefined)) {
-                        acc.favouriteMovies.splice(index, 1);
-                        allAccs[ind].favouriteMovies.push(index, 1);
-                        checker = true
-                    };
-                });
-                if (checker === false) {
-                    acc.favouriteMovies.push(element);
-                    allAccs[ind].favouriteMovies.push(element);
-                }
-                localStorage.setItem('activeAccount', JSON.stringify(acc));
-                localStorage.setItem('allAccounts', JSON.stringify(allAccs));
-            }
-            if (isFavorite) setIsFavorite(false);
-            else setIsFavorite(true);
+            localStorage.setItem('activeAccount', JSON.stringify(acc));
+            localStorage.setItem('allAccounts', JSON.stringify(allAccs));
         }
         else {
-            alert("First you need to sign in")
+            let checker = false;
+            acc.favouriteMovies.forEach((elem, index) => {
+                if (elem.title === element.title || (elem.name === element.name && elem.name !== undefined)) {
+                    acc.favouriteMovies.splice(index, 1);
+                    allAccs[ind].favouriteMovies.push(index, 1);
+                    checker = true
+                };
+            });
+            if (checker === false) {
+                acc.favouriteMovies.push(element);
+                allAccs[ind].favouriteMovies.push(element);
+            }
+            localStorage.setItem('activeAccount', JSON.stringify(acc));
+            localStorage.setItem('allAccounts', JSON.stringify(allAccs));
         }
-
+        if (isFavorite) setIsFavorite(false);
+        else setIsFavorite(true);
     }, [category, element, isFavorite])
 
     return (
@@ -118,12 +119,19 @@ const Detail = () => {
                             <div className="movie-content__info">
                                 <div className="title">
                                     {element.title || element.name}
-                                    <button className="favorite"><img className="favoriteLogo" alt="Not found" src={`${isFavorite ? fav : notFav}`} onClick={addToFavorite}></img></button>
+                                    {Object.keys(JSON.parse(localStorage.getItem('activeAccount'))).length > 0 ?
+                                        <button className="favorite"><img className="favoriteLogo" alt="Not found"
+                                            src={`${isFavorite ? fav : notFav}`} onClick={addToFavorite}></img></button> :
+                                        ""}
                                 </div>
                                 <div className="genres">
                                     {
                                         element.genres && element.genres.slice(0, 5).map((genre, index) => (
-                                            <span key={index} className="genres__item">{genre.name}</span>
+                                            <span key={index} className="genres__item"
+                                                style={{
+                                                    backgroundColor: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '#fff' : ''}`,
+                                                    border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`
+                                                }}>{genre.name}</span>
                                         ))
                                     }
                                 </div>

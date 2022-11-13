@@ -1,42 +1,43 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from '../pages/Home';
 import Catalog from '../pages/Catalog';
 import Detail from '../pages/detail/Detail';
 import Authorization from '../pages/authorization/Authorization';
+import Profile from '../pages/profile/Profile';
 
-const Routes = () => {
+const Routing = () => {
     return (
-        <Switch>
-            <Route
-                path='/registration'
-                component={Authorization}
-            />
+        <Routes>
             <Route
                 path='/authorization'
-                component={Authorization}
+                element={Authorization}
+            />
+            <Route
+                path='/profile/:mail'
+                element={Profile}
             />
             <Route
                 path='/:category/search/:keyword'
-                component={Catalog}
+                element={Catalog}
             />
             <Route
                 path='/:category/:id'
-                component={Detail}
+                element={Detail}
             />
             <Route
                 path='/:category'
-                component={Catalog}
+                element={Catalog}
             />
             <Route
                 path='/'
                 exact
-                component={Home}
+                element={Home}
             />
-        </Switch>
+        </Routes>
     );
 }
 
-export default Routes;
+export default Routing;

@@ -21,7 +21,7 @@ html {
     }
 }
 
-body {
+.dark-theme {
     font-family: $font-family;
     font-weight: 400;
     line-height: 1.5;
@@ -259,4 +259,88 @@ iframe {
 
 .swiper-centered>.swiper-wrapper>.swiper-slide {
     scroll-snap-align: center center
+}
+
+.light-theme {
+    font-family: $font-family;
+    font-weight: 400;
+    line-height: 1.5;
+
+    background-color: $body-bg-light;
+    color: $txt-color-light;
+
+    .swiper-wrapper {
+        color: $txt-color;
+    }
+
+    .header {
+        color: $txt-color;
+    }
+
+    .shrink {
+        color: $txt-color-light;
+        background-color: $body-bg-light;
+    }
+
+    .page-header {
+        color: $txt-color
+    }
+
+    .cardTitle {
+        color: $txt-color-light;
+    }
+
+    .cardTitle:hover {
+        color: red;
+    }
+
+    .header__nav {
+        @media screen and (max-width: 768px) {
+            background-color: #fff;
+            color: $txt-color-light;
+        }
+    }
+
+    .authContainer {
+        background-color: $body-bg-light;
+    }
+
+    .authForm {
+        background-color: #fff;
+        font-weight: 700;
+
+        .hr {
+            background-color: black;
+        }
+
+        input {
+            background-color: black;
+            color: #fff;
+        }
+
+        .signIn__btn {
+            color: #fff;
+        }
+    }
+
+    .profileForm {
+        background-color: #fff;
+        font-weight: 700;
+
+        input {
+            background-color: black;
+            color: #fff;
+        }
+    }
+
+    .genres {
+
+        &__item {
+            background-color: #fff;
+        }
+    }
+
+    @include mobile {
+        margin-bottom: 3rem;
+    }
 }

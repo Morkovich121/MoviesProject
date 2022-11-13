@@ -1,13 +1,13 @@
 import React from 'react'
 
-import logo from '../../assets/tmovie.png';
+import logo from '../../assets/logo.png';
 import './logo.scss';
 
 const Logo = () => {
     return (
         <div className="logo">
             <img src={logo} alt="" />
-            <a href="/">tMovies</a>
+            <a href="/">MyMovies</a>
         </div>
     )
 }

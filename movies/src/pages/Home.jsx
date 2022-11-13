@@ -11,17 +11,17 @@ import Footer from '../components/footer/Footer';
 
 const Home = () => {
     console.log(localStorage);
+    //localStorage.clear();
     if (localStorage.length === 0) {
+        localStorage.setItem('theme', JSON.stringify("dark"));
         localStorage.setItem('activeAccount', JSON.stringify({}));
         localStorage.setItem('allAccounts', JSON.stringify([]));
-        // localStorage.setItem('favouriteMovie', JSON.stringify([]));
-        // localStorage.setItem('favouriteTV', JSON.stringify([]));
     }
     return (
         <>
             <Header />
             <HeroSlide />
-            <div className="container">
+            <div className="container clased">
                 <div className="section mb-3">
                     <div className="section__header mb-2">
                         <h2>Popular movies</h2>

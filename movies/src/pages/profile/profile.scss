@@ -1,0 +1,98 @@
+@use '../../scss/' as *;
+
+.profileContainer {
+    @include flex(center, center);
+}
+
+.profileForm {
+    @include flex(center, center);
+    flex-direction: column;
+    padding: 30px 0px;
+    background: rgb(52, 56, 61);
+    width: 50%;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    min-width: 140px;
+    border-radius: 10px;
+
+    @include mobile {
+        width: 100%;
+    }
+}
+
+.profileForm div:first-child {
+    gap: 2rem;
+}
+
+.profileForm div label {
+    margin-left: 10px;
+}
+
+.profileForm input {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-width: 20rem;
+    min-width: 120px;
+    width: 100%;
+}
+
+.profileImg {
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.userInfo {
+    width: 50%;
+    gap: 0.5rem;
+    @include flex(center, center);
+    flex-direction: column;
+
+    &__item {
+        width: 100%;
+        gap: 0.5rem;
+        @include flex(center, center);
+        flex-direction: column;
+
+        &__row{
+            @include flex(center, center);
+            gap: 2rem;
+            width: 70%;
+        }
+    }
+}
+
+.profileButtons {
+    @include flex(center, space-between);
+    padding: 0px 30px;
+    width: 50%;
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+.profileButtons button {
+    border-radius: 10px;
+    border: none;
+    height: 30px;
+    padding: 5px;
+    @include flex(center, center);
+    font-weight: 700;
+    font-size: 1.2rem;
+    width: 6rem;
+}
+
+.profileButtons button:nth-of-type(1) {
+    background-color: rgb(63, 63, 176);
+}
+
+.profileButtons button:nth-of-type(2) {
+    background-color: rgb(239, 63, 72);
+}
+
+.empty {
+    border: 1.6px dashed red;
+}

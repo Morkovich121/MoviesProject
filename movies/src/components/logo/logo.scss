@@ -10,4 +10,8 @@
         margin-right: 10px;
         width: 3.3rem;
     }
+
+    @media screen and (max-width:768px) {
+        order: 1;
+    }
 }

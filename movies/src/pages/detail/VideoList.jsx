@@ -14,7 +14,8 @@ const VideoList = props => {
     useEffect(() => {
         const getVideos = async () => {
             const res = await tmdbApi.getVideos(category, props.id);
-            setVideos(res.results.slice(0, 5));
+
+            setVideos(res.results.filter((item) => item.type === "Trailer").slice(0, 5));
         }
         getVideos();
     }, [category, props.id]);
@@ -22,9 +23,11 @@ const VideoList = props => {
     return (
         <>
             {
-                videos.map((item, i) => (
-                    <Video key={i} item={item} />
-                ))
+                videos.map((item, i) => {
+                    return i === 0 ?
+                        <Video key={i} item={item} />
+                        : null
+                })
             }
         </>
     )

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './movie-grid.scss';
 
 import MovieCard from '../movieCard/MovieCard';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import tmdbApi, { category, movieType, tvType } from '../../api/tmdbApi';
 import Button, { OutlineButton } from '../button/Button';
 import Input from '../input/Input';
@@ -89,14 +89,14 @@ const MovieGrid = props => {
 
 const MovieSearch = props => {
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
 
     const goToSearch = useCallback(
         () => {
             if (keyword.trim().length > 0) {
-                history.push(`/${category[props.category]}/search/${keyword}`);
+                history(`/${category[props.category]}/search/${keyword}`);
                 window.location.reload();
             }
         },

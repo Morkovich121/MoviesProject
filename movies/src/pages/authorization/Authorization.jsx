@@ -1,9 +1,16 @@
 import React, { useState, useCallback, } from 'react'
+import { v4 as uuidv4 } from "uuid";
 
 import './authorization.scss';
 import home from '../../assets/home.png';
+import profileImg from '../../assets/profileImg.png';
 
 const Authorization = () => {
+
+    if (localStorage.length === 0) {
+        localStorage.setItem('activeAccount', JSON.stringify({}));
+        localStorage.setItem('allAccounts', JSON.stringify([]));
+    }
 
     const [isSingIn, setIsSignIn] = useState(true);
     const [isEqualPass, setIsEqualPass] = useState(true);
@@ -30,7 +37,7 @@ const Authorization = () => {
     }, [setRepPassword])
 
     const createAccount = useCallback(() => {
-        if (password !== repPassword) {
+        if (password !== repPassword || password.length === 0) {
             setIsEqualPass(false);
         }
         else {
@@ -41,19 +48,17 @@ const Authorization = () => {
             });
             if (newAcc === true) {
                 console.log("ok");
-                accounts.push({
-                    "email": email,
-                    "password": password,
-                    "favouriteTV": [],
-                    "favouriteMovies": []
-                });
-                localStorage.setItem("allAccounts", JSON.stringify(accounts));
                 const profile = {
                     "email": email,
                     "password": password,
+                    "nickName": email,
+                    "id": uuidv4(),
+                    "image": profileImg,
                     "favouriteTV": [],
                     "favouriteMovies": []
                 }
+                accounts.push(profile);
+                localStorage.setItem("allAccounts", JSON.stringify(accounts));
                 localStorage.setItem("activeAccount", JSON.stringify(profile));
                 window.location.href = '/';
             }
@@ -109,13 +114,12 @@ const Authorization = () => {
                             <input type="password" id="repPass" name="repPass" placeholder="repeat password" value={repPassword} onChange={onRepPassChange} /> :
                             ""}
                         {!isEqualPass ?
-                            <span className='notEqual'>Passwords aren't equal</span> :
+                            <span className='notEqual'>Passwords aren't equal or empty</span> :
                             ""}
                         <hr className='hr'></hr>
                         <button className='signIn__btn'>{isSingIn ?
                             <span onClick={signIn} style={{ width: "100%" }}>Sign In</span> :
                             <span onClick={createAccount} style={{ width: "100%" }}>Sign Up</span>}</button>
-                        {isSingIn ? <span className='forgot'>forgot your password? <a href="/" className='signIn__clickHere'>click here</a></span> : ""}
                     </div>
                 </div>
             </div>

@@ -31,6 +31,28 @@
         background-color: $body-bg;
     }
 
+    &__options {
+        @include flex(center, center);
+        gap: 2.5rem;
+
+        &-theme {
+            width: 2.5rem;
+                height: 2.5rem;
+                font-size: 0.7rem;
+
+            @media screen and (max-width:768px) {
+                order: 0;
+            }
+        }
+
+        &-language {
+
+            @media screen and (max-width:768px) {
+                order: 2;
+            }
+        }
+    }
+
     &__wrap {
         @include flex(center, space-between);
         height: 100%;
@@ -44,7 +66,7 @@
     &__nav {
         @include flex(center, unset);
 
-        & > * ~ * {
+        &>*~* {
             margin-left: 2rem;
         }
 
@@ -72,7 +94,7 @@
             }
         }
 
-        @media screen and (max-width:768px){
+        @media screen and (max-width:768px) {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -84,13 +106,19 @@
 
             @include flex(center, space-between);
 
-            & > * ~ * {
+            &>*~* {
                 margin-left: 0;
             }
         }
     }
-} 
+}
 
-.account{
-    font-size:4rem;
+.account {
+    font-size: 2rem;
+}
+
+.accountLogo {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }

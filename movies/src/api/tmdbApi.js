@@ -46,6 +46,11 @@ const tmdbApi = {
     similar: (categ, id) => {
         const url = category[categ] + '/' + id + '/similar';
         return axiosClient.get(url, { params: {} });
+    },
+    movieGenres: (categ) => {
+        const url = 'genre/' + category[categ] + '/list';
+        console.log(url);
+        return axiosClient.get(url, { params: {} })
     }
 }
 

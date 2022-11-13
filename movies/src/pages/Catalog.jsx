@@ -11,6 +11,11 @@ import Footer from '../components/footer/Footer';
 
 const Catalog = () => {
 
+    if (localStorage.length === 0) {
+        localStorage.setItem('activeAccount', JSON.stringify({}));
+        localStorage.setItem('allAccounts', JSON.stringify([]));
+    }
+
     const { category } = useParams();
 
     return (

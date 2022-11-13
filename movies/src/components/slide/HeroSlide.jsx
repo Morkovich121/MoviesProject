@@ -11,7 +11,7 @@ import Modal, { ModalContent } from '../modal/Modal';
 import Button, { OutlineButton } from '../button/Button'
 
 import './hero-slide.scss';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSlide = () => {
 
@@ -39,7 +39,7 @@ const HeroSlide = () => {
                 grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                autoplay={{ delay: 3000 }}
+            //  autoplay={{ delay: 3000 }}
             >
                 {
                     movieItems.map((element, i) => (
@@ -59,7 +59,7 @@ const HeroSlide = () => {
 }
 
 const HeroSlideElement = props => {
-    let history = useHistory();
+    let history = useNavigate();
 
     const elem = props.item;
 
@@ -71,7 +71,7 @@ const HeroSlideElement = props => {
         const videos = await tmdbApi.getVideos(category.movie, elem.id);
 
         if (videos.results.length > 0) {
-            const videSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
+            const videSrc = 'https://www.youtube.com/embed/' + videos.results.filter((item) => item.type === "Trailer")[0].key;
             modal.querySelector('.modal__content > iframe').setAttribute('src', videSrc);
         } else {
             modal.querySelector('.modal__content').innerHTML = 'No trailer';
@@ -91,7 +91,7 @@ const HeroSlideElement = props => {
                     <div className='overview'>{elem.overview}</div>
                     <div className="btns">
                         <Button onClick={() => {
-                            history.push('/movie/' + elem.id);
+                            history('/movie/' + elem.id);
                             window.location.reload();
                         }}>
                             Watch now
