@@ -8,6 +8,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import tmdbApi, { category, movieType, tvType } from '../../api/tmdbApi';
 import Button, { OutlineButton } from '../button/Button';
 import Input from '../input/Input';
+import translations from '../../config/translations';
+
+const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['MovieGrid']) : Object.keys(translations['MovieGrid']);
 
 const MovieGrid = props => {
 
@@ -79,7 +82,7 @@ const MovieGrid = props => {
             {
                 page < totalPage ? (
                     <div className="movie-grid__loadmore">
-                        <OutlineButton className="small" onClick={loadMore}>Load more</OutlineButton>
+                        <OutlineButton className="small" onClick={loadMore}>{pageText[0]}</OutlineButton>
                     </div>
                 ) : null
             }
@@ -120,11 +123,11 @@ const MovieSearch = props => {
         <div className="movie-search">
             <Input
                 type="text"
-                placeholder="Enter keyword"
+                placeholder={pageText[2]}
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
             />
-            <Button className="small" onClick={goToSearch}>Search</Button>
+            <Button className="small" onClick={goToSearch}>{pageText[1]}</Button>
         </div>
     )
 }

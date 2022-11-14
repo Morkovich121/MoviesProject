@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 import tmdbApi from "../../api/tmdbApi";
@@ -13,15 +13,18 @@ import VideoList from "./VideoList";
 import MovieList from '../../components/movieList/MovieList';
 import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
-import { useCallback } from "react";
-
+import translations from "../../config/translations";
 
 
 const Detail = () => {
 
+    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Detail']) : Object.keys(translations['Detail']);
+
     if (localStorage.length === 0) {
+        localStorage.setItem('theme', JSON.stringify("dark"));
         localStorage.setItem('activeAccount', JSON.stringify({}));
         localStorage.setItem('allAccounts', JSON.stringify([]));
+        localStorage.setItem('language', navigator.language.substring(0, 2) === 'en' ? 'en' : 'uk');
     }
 
     const { category, id } = useParams();
@@ -34,8 +37,6 @@ const Detail = () => {
         const getDetail = async () => {
             const response = await tmdbApi.detail(category, id, { params: {} });
             setElements(response);
-            const response2 = await tmdbApi.movieGenres(category);
-            console.log(response2);
             window.scrollTo(0, 0);
             let acc = JSON.parse(localStorage.getItem('activeAccount'));
             if (Object.keys(acc).length > 0) {
@@ -103,6 +104,10 @@ const Detail = () => {
         else setIsFavorite(true);
     }, [category, element, isFavorite])
 
+    const getByGenre = useCallback((id) => {
+        console.log(id)
+    }, [])
+
     return (
         <>
             <Header />
@@ -128,6 +133,7 @@ const Detail = () => {
                                     {
                                         element.genres && element.genres.slice(0, 5).map((genre, index) => (
                                             <span key={index} className="genres__item"
+                                                onClick={() => { getByGenre(genre.id) }}
                                                 style={{
                                                     backgroundColor: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '#fff' : ''}`,
                                                     border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`
@@ -140,7 +146,7 @@ const Detail = () => {
                                 </p>
                                 <div className="cast">
                                     <div className="section__header">
-                                        <h2>Casts</h2>
+                                        <h2>{pageText[0]}</h2>
                                     </div>
                                     <CastList id={element.id} />
                                 </div>
@@ -152,7 +158,7 @@ const Detail = () => {
                             </div>
                             <div className="section mb-3">
                                 <div className="section__header mb-2">
-                                    <h2>Similar</h2>
+                                    <h2>{pageText[1]}</h2>
                                 </div>
                                 <MovieList category={category} type="similar" id={element.id} />
                             </div>

@@ -5,11 +5,14 @@ import Header from '../../components/header/Header';
 import Footer from '../../components/footer/Footer';
 import PageHeader from '../../components/pageHeader/PageHeader';
 import profileImg from '../../assets/profileImg.png';
+import translations from '../../config/translations';
 
 
 import './profile.scss';
 
 const Profile = () => {
+
+    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Profile']) : Object.keys(translations['Profile']);
 
     const account = JSON.parse(localStorage.getItem('activeAccount'));
     const oldPassword = useRef();
@@ -78,12 +81,12 @@ const Profile = () => {
             allAccs[activeAccountIndex] = newAccount;
             localStorage.setItem('allAccounts', JSON.stringify(allAccs));
             localStorage.setItem('activeAccount', JSON.stringify(newAccount));
-            alert("All data saved successfully");
+            alert(pageText[11]);
         } else {
             setIsAllFilled(false);
         }
 
-    }, [account.id, userEmail, userImage, userNickname, userPassword, account.favouriteMovies, account.favouriteTV]);
+    }, [account.id, userEmail, userImage, userNickname, userPassword, account.favouriteMovies, account.favouriteTV, pageText]);
 
     return JSON.parse(localStorage.getItem('activeAccount')).id === useParams().id ? (
         <>
@@ -95,39 +98,39 @@ const Profile = () => {
                     <div className='userInfo__item'>
                         <div className='profileImg' style={{ backgroundImage: `url(${userImage}` }}></div>
                         <div className='userInfo__item'>
-                            <label htmlFor='userPhotoLink'>Image link from the internet:</label>
+                            <label htmlFor='userPhotoLink'>{pageText[0]}:</label>
                             <input type="text" name="userPhotoLink" id="userPhotoLink" className={`${!isAllFilled && !userImage ? "empty" : ""}`}
-                                placeholder="Paste image link from internet" value={userImage} onChange={onUserImageChange} />
+                                placeholder={pageText[1]} value={userImage} onChange={onUserImageChange} />
                         </div>
                     </div>
                     <div className='userInfo__item'>
-                        <label htmlFor="userNickName">Nickname:</label>
-                        <input type="text" name="userNickName" id="userNickName" placeholder='Nickname'
+                        <label htmlFor="userNickName">{pageText[2]}:</label>
+                        <input type="text" name="userNickName" id="userNickName" placeholder={pageText[2]}
                             className={`${!isAllFilled && !userNickname ? "empty" : ""}`} value={userNickname} onChange={onUserNicknameChange} />
                     </div>
                     <div className='userInfo__item'>
-                        <label htmlFor="userEmail">Email:</label>
-                        <input type="email" name="userEmail" id="userEmail" placeholder='Email'
+                        <label htmlFor="userEmail">{pageText[3]}:</label>
+                        <input type="email" name="userEmail" id="userEmail" placeholder={pageText[3]}
                             className={`${!isAllFilled && !userEmail ? "empty" : ""}`} value={userEmail} onChange={onUserEmailChange} />
                         {!isAllFilled ?
-                            <span className='notEqual'>One or more inputs are empty</span> :
+                            <span className='notEqual'>{pageText[7]}</span> :
                             ""}
                     </div>
                     <div className='userInfo__item'>
-                        <span>Change password:</span>
+                        <span>{pageText[4]}:</span>
                         <div className='userInfo__item__row'>
-                            <input type="password" name="userPassword" id="userOldPassword" style={{ minWidth: "55px" }} placeholder='Old password'
+                            <input type="password" name="userPassword" id="userOldPassword" style={{ minWidth: "55px" }} placeholder={pageText[5]}
                                 ref={oldPassword} onChange={onUserPasswordChange} />
-                            <input type="password" name="userPassword" id="userNewPassword" style={{ minWidth: "55px" }} placeholder='New password'
+                            <input type="password" name="userPassword" id="userNewPassword" style={{ minWidth: "55px" }} placeholder={pageText[6]}
                                 ref={newPassword} onChange={onUserPasswordChange} />
                         </div>
                     </div>
                     {!isCorrectPass ?
-                        <span className='notEqual'>Wrong old password</span> :
+                        <span className='notEqual'>{pageText[8]}</span> :
                         ""}
                     <div className='profileButtons'>
-                        <button onClick={saveProfileInfo}>Save</button>
-                        <button onClick={exitAccount}>Exit</button>
+                        <button onClick={saveProfileInfo} style={{ width: 'fit-content' }}>{pageText[9]}</button>
+                        <button onClick={exitAccount} style={{ width: 'fit-content' }}>{pageText[10]}</button>
                     </div>
                 </div>
             </div>

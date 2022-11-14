@@ -2,16 +2,17 @@ import { React, useState, useRef, useEffect } from 'react'
 
 import SwiperCore, { Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
 import tmdbApi, { category, movieType } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 
+import translations from '../../config/translations';
 import Modal, { ModalContent } from '../modal/Modal';
 import Button, { OutlineButton } from '../button/Button'
 
 import './hero-slide.scss';
-import { useNavigate } from 'react-router-dom';
 
 const HeroSlide = () => {
 
@@ -59,6 +60,8 @@ const HeroSlide = () => {
 }
 
 const HeroSlideElement = props => {
+    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['HeroSlide']) : Object.keys(translations['HeroSlide']);
+
     let history = useNavigate();
 
     const elem = props.item;
@@ -94,10 +97,10 @@ const HeroSlideElement = props => {
                             history('/movie/' + elem.id);
                             window.location.reload();
                         }}>
-                            Watch now
+                            {pageText[0]}
                         </Button>
                         <OutlineButton onClick={setModalActive}>
-                            Watch trailer
+                            {pageText[1]}
                         </OutlineButton>
                     </div>
                 </div>

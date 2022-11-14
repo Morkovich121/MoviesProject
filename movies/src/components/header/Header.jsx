@@ -1,32 +1,33 @@
-import { React, useEffect, useRef } from "react";
+import { React, useEffect, useRef, useCallback } from "react";
 import { useLocation } from 'react-router-dom';
 
 import Logo from '../logo/Logo';
 import darkTheme from '../../assets/darkTheme.png';
 import lightTheme from '../../assets/lightTheme.png';
+import ukr from '../../assets/ukr.png';
+import eng from '../../assets/eng.png';
+
+import translations from "../../config/translations";
 
 import './header.scss';
 
-const links = {
-    en: ['Home', 'Movies', 'TV Series', 'Sign In'],
-    ru: ['Главная', "Фильмы", "Сериалы", "Авторизоваться"]
-}
+const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Header']) : Object.keys(translations['Header']);
 
 const headerNav = [
     {
-        display: links.en[0],
+        display: pageText[0],
         path: '/'
     },
     {
-        display: links.en[1],
+        display: pageText[1],
         path: '/movie'
     },
     {
-        display: links.en[2],
+        display: pageText[2],
         path: '/tv'
     },
     {
-        display: links.en[3],
+        display: pageText[3],
         path: '/authorization'
     },
 ]
@@ -55,7 +56,7 @@ const Header = () => {
         };
     }, []);
 
-    const ChangeTheme = () => {
+    const ChangeTheme = useCallback(() => {
         if (JSON.parse(localStorage.getItem('theme')) === 'dark') {
             localStorage.setItem('theme', JSON.stringify('light'));
         }
@@ -63,7 +64,17 @@ const Header = () => {
             localStorage.setItem('theme', JSON.stringify('dark'));
         }
         window.location.reload();
-    }
+    }, [])
+
+    const ChangeLanguage = useCallback(() => {
+        if (localStorage.getItem('language') === 'uk') {
+            localStorage.setItem('language', 'en');
+        }
+        else {
+            localStorage.setItem('language', 'uk');
+        }
+        window.location.reload();
+    }, [])
 
     return (
         <div ref={headerRef} className="header">
@@ -72,7 +83,8 @@ const Header = () => {
                     <Logo />
                     <img className="header__options-theme" src={JSON.parse(localStorage.getItem('theme')) === 'dark' ? darkTheme : lightTheme}
                         alt="" onClick={ChangeTheme} />
-                    <span className="header__options-language">lang</span>
+                    <img className="header__options-language" alt="No language" src={(localStorage.getItem('language')) === 'uk' ? ukr : eng}
+                        onClick={ChangeLanguage} />
                 </div>
                 <ul className="header__nav">
                     {
