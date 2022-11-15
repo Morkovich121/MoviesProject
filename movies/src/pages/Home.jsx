@@ -13,7 +13,6 @@ import translations from "../config/translations";
 const Home = () => {
     const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Home']) : Object.keys(translations['Home']);
 
-    console.log(localStorage);
     //localStorage.clear();
 
     if (localStorage.length === 0) {
