@@ -108,8 +108,11 @@ const MovieSearch = props => {
         () => {
             if (keyword.trim().length > 0) {
                 history(`/${category[props.category]}/search/${keyword}`);
-                window.location.reload();
             }
+            else {
+                history(`/${category[props.category]}`);
+            }
+            window.location.reload();
         },
         [keyword, props.category, history]
     );

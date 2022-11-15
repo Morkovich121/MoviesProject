@@ -48,7 +48,8 @@ const Catalog = () => {
                             <a href={'/' + category + '/genre/' + elem.id} key={elem.id}><span key={elem.id} className="catalogGenres__item"
                                 style={{
                                     backgroundColor: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '#fff' : ''}`,
-                                    border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`
+                                    border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`,
+                                    fontWeight: `${elem.id === Number(id) ? '1000' : ''}`
                                 }}>{elem.name}</span></a>
                         )) : null}
                     </div>

@@ -45,35 +45,36 @@ const Authorization = () => {
         if (password !== repPassword || password.length === 0) {
             setIsEqualPass(false);
         }
-        if (email.indexOf("@") === -1 || email.indexOf(".") === -1 || email.indexOf(".") - 1 <= email.indexOf("@")) {
-            setIsCorrectEmail(false);
-        }
-        else {
-            let accounts = JSON.parse(localStorage.getItem('allAccounts'));
-            let newAcc = true;
-            accounts.forEach((elem) => {
-                if (elem.email === email) newAcc = false;
-            });
-            if (newAcc === true) {
-                console.log("ok");
-                const profile = {
-                    "email": email,
-                    "password": password,
-                    "nickName": email,
-                    "id": uuidv4(),
-                    "image": profileImg,
-                    "favouriteTV": [],
-                    "favouriteMovies": []
-                }
-                accounts.push(profile);
-                localStorage.setItem("allAccounts", JSON.stringify(accounts));
-                localStorage.setItem("activeAccount", JSON.stringify(profile));
-                window.location.href = '/';
+        else
+            if (email.indexOf("@") === -1 || email.indexOf(".") === -1 || email.indexOf(".") - 1 <= email.indexOf("@")) {
+                setIsCorrectEmail(false);
             }
             else {
-                alert(pageText[6])
+                let accounts = JSON.parse(localStorage.getItem('allAccounts'));
+                let newAcc = true;
+                accounts.forEach((elem) => {
+                    if (elem.email === email) newAcc = false;
+                });
+                if (newAcc === true) {
+                    console.log("ok");
+                    const profile = {
+                        "email": email,
+                        "password": password,
+                        "nickName": email,
+                        "id": uuidv4(),
+                        "image": profileImg,
+                        "favouriteTV": [],
+                        "favouriteMovies": []
+                    }
+                    accounts.push(profile);
+                    localStorage.setItem("allAccounts", JSON.stringify(accounts));
+                    localStorage.setItem("activeAccount", JSON.stringify(profile));
+                    window.location.href = '/';
+                }
+                else {
+                    alert(pageText[6])
+                }
             }
-        }
     }, [email, password, repPassword, pageText])
 
     const signIn = useCallback(() => {
