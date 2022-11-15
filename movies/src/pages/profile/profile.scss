@@ -58,7 +58,7 @@
         @include flex(center, center);
         flex-direction: column;
 
-        &__row{
+        &__row {
             @include flex(center, center);
             gap: 2rem;
             width: 70%;
@@ -86,11 +86,11 @@
 }
 
 .profileButtons button:nth-of-type(1) {
-    background-color: rgb(63, 63, 176);
+    background-color: #009AFA;
 }
 
 .profileButtons button:nth-of-type(2) {
-    background-color: rgb(239, 63, 72);
+    background-color: #db6e96;
 }
 
 .empty {

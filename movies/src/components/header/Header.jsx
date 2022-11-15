@@ -8,6 +8,7 @@ import ukr from '../../assets/ukr.png';
 import eng from '../../assets/eng.png';
 
 import translations from "../../config/translations";
+import profileImg from "../../assets/profileImg.png";
 
 import './header.scss';
 
@@ -92,7 +93,9 @@ const Header = () => {
                             <li key={index} className={`${index === active ? 'active' : ''}`} style={{ fontSize: `${index > 2 ? "1.5rem" : '1.3rem'}` }} >
                                 {index > 2 && Object.keys(account).length > 0 ?
                                     <a href={profileLink}>
-                                        <img src={account.image} alt="No logo" className="accountLogo"></img>
+                                        <img src={account.image}
+                                            onError={() => { account.image = profileImg; localStorage.setItem('activeAccount', JSON.stringify(account)) }}
+                                            alt="No logo" className="accountLogo"></img>
                                     </a>
                                     :
                                     <a href={element.path}>

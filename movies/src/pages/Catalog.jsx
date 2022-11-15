@@ -49,7 +49,7 @@ const Catalog = () => {
                                 style={{
                                     backgroundColor: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '#fff' : ''}`,
                                     border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`,
-                                    fontWeight: `${elem.id === Number(id) ? '1000' : ''}`
+                                    color: `${elem.id === Number(id) ? 'red' : ''}`
                                 }}>{elem.name}</span></a>
                         )) : null}
                     </div>
