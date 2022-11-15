@@ -66,7 +66,7 @@ const Home = () => {
                 <div className="section mb-3">
                     <div className="section__header mb-2">
                         <h2>{pageText[5]}</h2>
-                        <a href="/Movie">
+                        <a href="/movie">
                             <OutlineButton className="small">{pageText[0]}</OutlineButton>
                         </a>
                     </div>
@@ -80,7 +80,7 @@ const Home = () => {
                 <div className="section mb-3">
                     <div className="section__header mb-2">
                         <h2>{pageText[6]}</h2>
-                        <a href="/Movie">
+                        <a href="/tv">
                             <OutlineButton className="small">{pageText[0]}</OutlineButton>
                         </a>
                     </div>

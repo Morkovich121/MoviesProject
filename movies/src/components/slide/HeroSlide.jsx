@@ -71,13 +71,16 @@ const HeroSlideElement = props => {
     const setModalActive = async () => {
         const modal = document.querySelector(`#modal_${elem.id}`);
 
-        const videos = await tmdbApi.getVideos(category.movie, elem.id);
+        const videosTranslate = await tmdbApi.getVideosWithLanguage(category.movie, elem.id);
 
-        if (videos.results.length > 0) {
-            const videSrc = 'https://www.youtube.com/embed/' + videos.results.filter((item) => item.type === "Trailer")[0].key;
+        if (videosTranslate.results.length > 0) {
+            const videSrc = 'https://www.youtube.com/embed/' + videosTranslate.results.filter((item) => item.type === "Trailer")[0].key;
             modal.querySelector('.modal__content > iframe').setAttribute('src', videSrc);
         } else {
-            modal.querySelector('.modal__content').innerHTML = 'No trailer';
+            const videos = await tmdbApi.getVideos(category.movie, elem.id);
+            const videSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
+            console.log(videos.results);
+            modal.querySelector('.modal__content > iframe').setAttribute('src', videSrc);
         }
 
         modal.classList.toggle('active');

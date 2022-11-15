@@ -57,10 +57,6 @@ const Detail = () => {
 
     }, [category, id, isFavorite]);
 
-    useEffect(() => {
-
-    }, [isFavorite]);
-
     const addToFavorite = useCallback(() => {
         let acc = JSON.parse(localStorage.getItem('activeAccount'));
         let allAccs = JSON.parse(localStorage.getItem('allAccounts'));
@@ -104,10 +100,6 @@ const Detail = () => {
         else setIsFavorite(true);
     }, [category, element, isFavorite])
 
-    const getByGenre = useCallback((id) => {
-        console.log(id)
-    }, [])
-
     return (
         <>
             <Header />
@@ -132,12 +124,11 @@ const Detail = () => {
                                 <div className="genres">
                                     {
                                         element.genres && element.genres.slice(0, 5).map((genre, index) => (
-                                            <span key={index} className="genres__item"
-                                                onClick={() => { getByGenre(genre.id) }}
+                                            <a href={'/' + category + '/genre/' + genre.id} key={index}><span key={index} className="genres__item"
                                                 style={{
                                                     backgroundColor: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '#fff' : ''}`,
                                                     border: `${JSON.parse(localStorage.getItem('theme')) === 'light' ? '2px solid #000 ' : ''}`
-                                                }}>{genre.name}</span>
+                                                }}>{genre.name}</span></a>
                                         ))
                                     }
                                 </div>

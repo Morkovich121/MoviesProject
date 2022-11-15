@@ -13,9 +13,14 @@ const VideoList = props => {
 
     useEffect(() => {
         const getVideos = async () => {
-            const res = await tmdbApi.getVideos(category, props.id);
-
-            setVideos(res.results.filter((item) => item.type === "Trailer").slice(0, 5));
+            let res = await tmdbApi.getVideosWithLanguage(category, props.id);
+            if (res.results.length !== 0) {
+                setVideos(res.results.filter((item) => item.type === "Trailer").slice(0, 5));
+            }
+            else {
+                const resEnglish = await tmdbApi.getVideos(category, props.id);
+                setVideos(resEnglish.results.filter((item) => item.type === "Trailer").slice(0, 5));
+            }
         }
         getVideos();
     }, [category, props.id]);

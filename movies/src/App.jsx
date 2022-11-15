@@ -36,6 +36,14 @@ const App = () => {
               element={<Catalog />}
             />
             <Route
+              path='/:category/genre/:id'
+              element={<Catalog />}
+            />
+            <Route
+              path='/:category/genre/:id/search/:keyword'
+              element={<Catalog />}
+            />
+            <Route
               path='/:category/:id'
               element={<Detail />}
             />

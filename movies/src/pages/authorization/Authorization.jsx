@@ -45,6 +45,9 @@ const Authorization = () => {
         if (password !== repPassword || password.length === 0) {
             setIsEqualPass(false);
         }
+        if (email.indexOf("@") === -1 || email.indexOf(".") === -1 || email.indexOf(".") - 1 <= email.indexOf("@")) {
+            setIsCorrectEmail(false);
+        }
         else {
             let accounts = JSON.parse(localStorage.getItem('allAccounts'));
             let newAcc = true;

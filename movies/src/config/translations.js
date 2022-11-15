@@ -23,7 +23,8 @@ const translations = {
     },
     'Catalog': {
         'Movies': 'Фільми',
-        'TV Series': 'Серіали'
+        'TV Series': 'Серіали',
+        'with genre': 'з жанром'
     },
     'MovieGrid': {
         'Load more': 'Переглянути ще',

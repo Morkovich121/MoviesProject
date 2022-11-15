@@ -20,19 +20,27 @@ const MovieGrid = props => {
     const [totalPage, setTotalPage] = useState(0);
 
     const { keyword } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         const getList = async () => {
             let response = null;
             if (keyword === undefined) {
                 const params = {};
-                switch (props.category) {
-                    case category.movie:
-                        response = await tmdbApi.getMoviesList(movieType.upcoming, { params });
-                        break;
-                    default:
-                        response = await tmdbApi.getTvList(tvType.popular, { params });
+                if (id !== undefined) {
+                    response = await tmdbApi.getByGenre(props.category, id, { params });
+
                 }
+                else {
+                    switch (props.category) {
+                        case category.movie:
+                            response = await tmdbApi.getMoviesList(movieType.upcoming, { params });
+                            break;
+                        default:
+                            response = await tmdbApi.getTvList(tvType.popular, { params });
+                    }
+                }
+
             } else {
                 const params = {
                     query: keyword
@@ -43,7 +51,7 @@ const MovieGrid = props => {
             setTotalPage(response.total_pages);
         }
         getList();
-    }, [props.category, keyword]);
+    }, [props.category, keyword, id]);
 
     const loadMore = async () => {
         let response = null;
@@ -91,8 +99,8 @@ const MovieGrid = props => {
 }
 
 const MovieSearch = props => {
-
     const history = useNavigate();
+    const { id } = useParams();
 
     const [keyword, setKeyword] = useState(props.keyword ? props.keyword : '');
 
@@ -119,7 +127,7 @@ const MovieSearch = props => {
         };
     }, [keyword, goToSearch]);
 
-    return (
+    return id === undefined ?
         <div className="movie-search">
             <Input
                 type="text"
@@ -128,8 +136,7 @@ const MovieSearch = props => {
                 onChange={(e) => setKeyword(e.target.value)}
             />
             <Button className="small" onClick={goToSearch}>{pageText[1]}</Button>
-        </div>
-    )
+        </div> : null
 }
 
 MovieGrid.propTypes = {
