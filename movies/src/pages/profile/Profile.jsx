@@ -12,7 +12,7 @@ import './profile.scss';
 
 const Profile = () => {
 
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Profile']) : Object.keys(translations['Profile']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['Profile'])
 
     const account = JSON.parse(localStorage.getItem('activeAccount'));
     const oldPassword = useRef();

@@ -10,7 +10,7 @@ import Button, { OutlineButton } from '../button/Button';
 import Input from '../input/Input';
 import translations from '../../config/translations';
 
-const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['MovieGrid']) : Object.keys(translations['MovieGrid']);
+const pageText = Object.values(translations[localStorage.getItem('language')]['MovieGrid'])
 
 const MovieGrid = props => {
 

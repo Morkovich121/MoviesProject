@@ -12,7 +12,7 @@ import translations from "../config/translations";
 
 const Catalog = () => {
 
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Catalog']) : Object.keys(translations['Catalog']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['Catalog'])
 
     const { id, category } = useParams();
     const [genres, setGenres] = useState();

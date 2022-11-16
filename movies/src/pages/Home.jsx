@@ -11,7 +11,7 @@ import Footer from '../components/footer/Footer';
 import translations from "../config/translations";
 
 const Home = () => {
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Home']) : Object.keys(translations['Home']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['Home'])
 
     //localStorage.clear();
 

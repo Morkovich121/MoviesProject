@@ -12,7 +12,7 @@ import profileImg from "../../assets/profileImg.png";
 
 import './header.scss';
 
-const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Header']) : Object.keys(translations['Header']);
+const pageText = Object.values(translations[localStorage.getItem('language')]['Header']);
 
 const headerNav = [
     {

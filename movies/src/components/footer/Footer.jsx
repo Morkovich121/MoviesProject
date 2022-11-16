@@ -10,7 +10,7 @@ import translations from "../../config/translations";
 
 const Footer = () => {
 
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Footer']) : Object.keys(translations['Footer']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['Footer'])
 
     return (
         <div className="footer" style={{ backgroundImage: `url(${bg})` }}>

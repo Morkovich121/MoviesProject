@@ -8,7 +8,7 @@ import translations from '../../config/translations';
 
 const Authorization = () => {
 
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['Authorization']) : Object.keys(translations['Authorization']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['Authorization'])
 
     if (localStorage.length === 0) {
         localStorage.setItem('theme', JSON.stringify("dark"));

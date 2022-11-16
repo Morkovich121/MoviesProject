@@ -60,7 +60,7 @@ const HeroSlide = () => {
 }
 
 const HeroSlideElement = props => {
-    const pageText = localStorage.getItem('language') === 'uk' ? Object.values(translations['HeroSlide']) : Object.keys(translations['HeroSlide']);
+    const pageText = Object.values(translations[localStorage.getItem('language')]['HeroSlide'])
 
     let history = useNavigate();
 
