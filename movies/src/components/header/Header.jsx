@@ -12,6 +12,13 @@ import profileImg from "../../assets/profileImg.png";
 
 import './header.scss';
 
+
+if (localStorage.length === 0) {
+    localStorage.setItem('theme', JSON.stringify("dark"));
+    localStorage.setItem('activeAccount', JSON.stringify({}));
+    localStorage.setItem('allAccounts', JSON.stringify([]));
+    localStorage.setItem('language', navigator.language.substring(0, 2) === 'en' ? 'en' : 'uk');
+}
 const pageText = Object.values(translations[localStorage.getItem('language')]['Header']);
 
 const headerNav = [
